@@ -163,8 +163,6 @@ export default function App() {
   return (
     <Provider>
       <View style={styles.container}>
-        {/* <Button icon="plus" mode="contained" onPress={() => console.log('Pressed')}>
-      </Button> */}
         <FAB
           icon="plus"
           style={styles.fab}
@@ -172,7 +170,7 @@ export default function App() {
         />
         <Portal >
           <Dialog visible={visible} onDismiss={hideDialog} style={{ width: '80%', alignSelf: 'center', maxHeight: 550, minHeight: 300 }}>
-            <Dialog.Title style={styles.titleText}>Nuovo Task</Dialog.Title>
+            <Dialog.Title style={styles.titleText}>Nuovo Subtask</Dialog.Title>
             <Dialog.Content style={{ alignSelf: 'center', maxHeight: 400, minHeight: 300 }}>
               <TextInput
                 label="Descrizione*"
@@ -183,56 +181,42 @@ export default function App() {
               <Dialog.ScrollArea style={{ maxHeight: 550 }}>
                 <ScrollView contentContainerStyle={{ paddingHorizontal: 15, maxHeight: 550 }}>
                   <View style={styles.horizontalContainer}>
-                    <View style={styles.accordionSelectorContainer}>
-                      <List.Accordion
-                        title="Uncontrolled Accordion"
-                        style={styles.accordionSelector}>
-                        <List.Item title="First item" />
-                        <List.Item title="Second item" />
-                      </List.Accordion>
-                    </View>
-                    <View style={styles.accordionSelectorContainer}>
-                      <List.Accordion
-                        title="Uncontrolled Accordion"
-                        style={styles.accordionSelector}>
-                        <List.Item title="First item" />
-                        <List.Item title="Second item" />
-                      </List.Accordion>
-                    </View>
-                    <View style={styles.accordionSelectorContainer}>
-                      <List.Accordion
-                        title="Uncontrolled Accordion"
-                        style={styles.accordionSelector}>
-                        <List.Item title="First item" />
-                        <List.Item title="Second item" />
-                      </List.Accordion>
-                    </View>
-                  </View>
-                  <View style={styles.horizontalContainer}>
-                    <Text style={styles.selectorLabel}>Resp. Funzionale:</Text>
+                    <Text style={styles.selectorLabel}>Responsabile:</Text>
                     <View style={styles.accordionSelectorContainer}>
                       <List.Accordion
                         title="(selezionare)"
                         style={styles.accordionSelector}>
-                        <List.Item title="First item" />
-                        <List.Item title="Second item" />
+                        <List.Item title="Io  - dummy" />
+                        <List.Item title="Tu - dummy" />
+                        <List.Item title="Lui - dummy" />
+                        <List.Item title="Lei - dummy" />
                       </List.Accordion>
                     </View>
-                    <Text style={styles.selectorLabel}>Resp. Funzionale:</Text>
+                    <Text style={styles.selectorLabel}>Tipologia resp.:</Text>
                     <View style={styles.accordionSelectorContainer}>
                       <List.Accordion
                         title="(selezionare)"
                         style={styles.accordionSelector}>
-                        <List.Item title="First item" />
-                        <List.Item title="Second item" />
+                        <List.Item title="Funzionale - dummy" />
+                        <List.Item title="Tecnico - dummy" />
+                      </List.Accordion>
+                    </View>
+                    <Text style={styles.selectorLabel}>Tipologia task:</Text>
+                    <View style={styles.accordionSelectorContainer}>
+                      <List.Accordion
+                        title="(selezionare)"
+                        style={styles.accordionSelector}>
+                        <List.Item title="Work - dummy" />
+                        <List.Item title="Rework - dummy" />
+                        <List.Item title="Analisi - dummy" />
                       </List.Accordion>
                     </View>
                   </View>
-                  <View style={styles.horizontalContainer}>
+                  <View style={styles.horizontalContainerFlex}>
                     <View style={{ marginRight: 15, marginBottom: 10 }}>
                       <DatePickerInput
                         locale="it"
-                        label="Data richiesta"
+                        label="Data inizio task"
                         value={request}
                         onChange={(request) => setRequest(request)}
                         inputMode="start"
@@ -242,46 +226,16 @@ export default function App() {
                     <View style={{ marginRight: 15, marginBottom: 10 }}>
                       <DatePickerInput
                         locale="it"
-                        label="Data inizio pianificato"
+                        label="Data rilascio pianificato"
                         value={start}
                         onChange={(start) => setStart(start)}
                         inputMode="start"
                       />
                     </View>
-                    <View style={{ marginRight: 15, marginBottom: 10 }}>
-                      <DatePickerInput
-                        locale="it"
-                        label="Data rilascio pianificato"
-                        value={end}
-                        onChange={(end) => setEnd(end)}
-                        inputMode="start"
-                      />
-                    </View>
-                    {/* <Button icon="calendar" mode="contained" onPress={openStartSelector} style={{ marginRight: 20 }}>
-                      Data richiesta
-                    </Button>
-                    <Button icon="calendar" mode="contained" onPress={openStartSelector} style={{ marginRight: 20 }}>
-                      Data inizio pianificato
-                    </Button>
-                    <Button icon="calendar" mode="contained" onPress={openEndSelector}>
-                      Data rilascio pianificato
-                    </Button> */}
                   </View>
-                  {/* {startVisible ? <View style={{ backgroundColor: '#fff', maxWidth: 200 }}><CalendarPicker
-                    style={{ maxWidth: 150 }}
-                    onDateChange={onStartChange}
-                  /></View> : <View />} */}
-
                   {endVisible ? <CalendarPicker
                     onDateChange={onEndChange}
                   /> : <View />}
-                  <Input
-                    placeholder="Add tags..."
-                    value={inputValue}
-                    onChangeText={(text) => setInputValue(text)}
-                    onSubmitEditing={handleAddTag}
-                    inputStyle={{ color: '#fff' }}
-                  />
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                     {tags.map((tag) => (
                       <Chip
@@ -295,37 +249,12 @@ export default function App() {
                       >{tag}</Chip>
                     ))}
                   </View>
-                  <TextInput multiline={true} numberOfLines={3} placeholder="Note" mode='outlined' style={styles.textInputNote} />
-                  <TextInput placeholder='Commessa*' style={styles.textInputConsuntivazione}></TextInput>
-                  <TextInput placeholder='Numero di ticket' style={styles.textInputConsuntivazione}></TextInput>
                   <Divider></Divider>
-                  <View style={styles.horizontalContainer}>
-                    <IconButton icon={documentCollapsed ? 'chevron-right' : 'chevron-down'} onPress={openDocumentInput}></IconButton>
-                    <Text style={styles.documentLabel}>Allegati</Text>
-                    <Button icon="calendar" mode="contained" onPress={openEndSelector} style={{ height: 35, marginLeft: 420, marginTop: 5 }}>
-                      Data analisi
-                    </Button>
-                  </View>
-                  {documentVisible ? <View style={styles.horizontalContainer} >
-                    <TextInput placeholder='Nome*' style={styles.documentInput}></TextInput>
-                    <TextInput placeholder='Estensione*' style={styles.documentInput}></TextInput>
-                  </View> : null
-                  }
-                  {documentVisible ? <TextInput placeholder='URL' mode='outlined' style={styles.documentInput} />
-                    : null}
-                  {documentVisible ? <Button style={{ alignSelf: 'flex-end' }}>Salva allegato</Button> : null}
-                  <View style={styles.horizontalContainer}>
+                  <View style={styles.horizontalContainerFlex}>
                     <TextInput placeholder='Tempo stimato*' style={styles.timeInput} />
                     <TextInput placeholder='Tempo consuntivabile' style={styles.timeInput}></TextInput>
-                    <Text style={styles.timeLabel}>TM?</Text>
-                    <View style={{ marginTop: 6 }}>
-                      <Checkbox status={checked ? 'checked' : 'unchecked'}
-                        onPress={() => {
-                          setChecked(!checked);
-                        }}
-                        style={{ paddingTop: 55 }} />
-                    </View>
                   </View>
+                  <TextInput multiline={true} numberOfLines={3} placeholder="Note" mode='outlined' style={styles.textInputNote} />
                 </ScrollView>
               </Dialog.ScrollArea>
             </Dialog.Content>
@@ -348,9 +277,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  horizontalContainerCentered: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    justifyContent: 'center'
+  },
+  horizontalContainerFlex: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    justifyContent: 'flex-start'
+  },
   horizontalContainer: {
     flexDirection: 'row',
     marginVertical: 10,
+    justifyContent: 'space-evenly'
   },
   accordionSelector: {
     //borderRadius: 15,
